@@ -19,6 +19,12 @@ export const site = {
     linkedin:  'https://www.linkedin.com/in/mai-linh-ho-596558207/',
   },
   tagline: 'Producing stories on stage and on screen.',
+  // Philosophy stays nested in `site` so components reading
+  // `site.philosophy.body` keep working.
+  philosophy: {
+    title: 'A note on the work.',
+    body:  "I work where journalism meets stagecraft — coordinating artists, building moments, telling stories that hold a room of people for a few hours. The events I produce aren't products. They're memory, lit and rehearsed. My job is to make sure nothing breaks the spell.",
+  },
 };
 
 // ============================================================
@@ -29,14 +35,6 @@ export const about = [
   "Recent rooms include international taekwondo championships, bank-headlined countdowns at the Opera House, an artist's first stadium tour, and a press desk at the Ministry of Foreign Affairs. Different rooms, same job: keep the story clean and the energy alive.",
   'I write and produce in Vietnamese and English (C1), with experience translating, transcribing, and editing across both.',
 ];
-
-// ============================================================
-// Philosophy
-// ============================================================
-export const philosophy = {
-  title: 'A note on the work.',
-  body:  "I work where journalism meets stagecraft — coordinating artists, building moments, telling stories that hold a room of people for a few hours. The events I produce aren't products. They're memory, lit and rehearsed. My job is to make sure nothing breaks the spell.",
-};
 
 // ============================================================
 // Projects
@@ -149,7 +147,7 @@ export const experience = [
 ] as const;
 
 // ============================================================
-// Skills (renamed from "Tools" in original)
+// Skills
 // ============================================================
 export const skills = [
   {
