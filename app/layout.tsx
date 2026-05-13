@@ -25,7 +25,6 @@ const fraunces = Fraunces({
   weight: ['300', '400', '500', '600'],
   style: ['normal', 'italic'],
   variable: '--font-display',
-  axes: ['opsz'], // optical sizing — Fraunces looks markedly better with it
 });
 
 const interTight = Inter_Tight({
