@@ -1,111 +1,114 @@
 /**
- * Site content.
+ * Site content — single source of truth.
  *
- * Editing your portfolio: change values here and the whole site updates.
- * No component imports raw strings — everything flows through this file.
+ * Edit values here and the whole site updates.
  */
 
+// ============================================================
+// Site-wide info
+// ============================================================
 export const site = {
   name:    'Mai Linh Ho',
   handle:  '@marlibol',
-  role:    'Communications & Event Producer',
-  city:    'Hà Nội, Vietnam',
-  email:   'hello@marlibol.com',
-  phone:   '+84 000 000 000',
+  role:    'Social & Event Production',
+  city:    'Hanoi, Vietnam',
+  email:   'linhrin02@gmail.com',
+  phone:   '0374827688',
   socials: {
-    instagram: 'https://instagram.com/marlibol',
-    linkedin:  'https://linkedin.com/in/marlibol',
-    behance:   'https://behance.net/marlibol',
+    instagram: 'https://www.instagram.com/marlibol/',
+    linkedin:  'https://www.linkedin.com/in/mai-linh-ho-596558207/',
   },
-  // Used in the hero — the single sentence that frames everything else.
   tagline: 'Producing stories on stage and on screen.',
-  // The "creative philosophy" longform — kept in the content file
-  // so it's easy to rewrite without touching JSX.
-  philosophy: {
-    title: 'A note on the work.',
-    body:  `I work where journalism meets stagecraft — coordinating artists, building moments, telling stories that hold a room of people for a few hours. The events I produce aren't products. They're memory, lit and rehearsed. My job is to make sure nothing breaks the spell.`,
-  },
 };
 
-/**
- * Featured projects.
- * `kicker` is the small label, `title` is the display headline.
- * `roles` is shown as a list under the project on the case page.
- * `cover` references files under /public/images.
- */
+// ============================================================
+// About paragraphs
+// ============================================================
+export const about = [
+  "I'm a Communications & Event Producer based in Hanoi. My work sits at the intersection of journalism, stagecraft and content — which is a long way of saying I build moments that hold a room.",
+  "Recent rooms include international taekwondo championships, bank-headlined countdowns at the Opera House, an artist's first stadium tour, and a press desk at the Ministry of Foreign Affairs. Different rooms, same job: keep the story clean and the energy alive.",
+  'I write and produce in Vietnamese and English (C1), with experience translating, transcribing, and editing across both.',
+];
+
+// ============================================================
+// Philosophy
+// ============================================================
+export const philosophy = {
+  title: 'A note on the work.',
+  body:  "I work where journalism meets stagecraft — coordinating artists, building moments, telling stories that hold a room of people for a few hours. The events I produce aren't products. They're memory, lit and rehearsed. My job is to make sure nothing breaks the spell.",
+};
+
+// ============================================================
+// Projects
+// ============================================================
 export const projects = [
   {
-    slug: 'asian-police-taekwondo',
-    index: '01',
-    year:  '2024',
-    kicker: 'International Sport Event',
-    title: 'Vietnam Asian Open Police Taekwondo Championships',
-    venue: 'Quảng Ninh Provincial Arena',
-    summary:
-      'Coordinating the live stage and 13 national delegations through opening ceremony, competition rounds, and broadcast moments.',
-    roles: ['Stage Coordination', 'Team Liaison (13 nations)', 'Run-of-Show'],
-    cover:  '/images/project-taekwondo.jpg',
-    accent: '#B8542B',
+    slug:    'asian-police-taekwondo',
+    index:   '01',
+    year:    '2024',
+    kicker:  'International Sport Event',
+    title:   'Vietnam Asian Open Police Taekwondo Championships',
+    venue:   'Quảng Ninh Provincial Arena',
+    summary: 'Coordinating the live stage and 13 national delegations through opening ceremony, competition rounds, and broadcast moments.',
+    roles:   ['Stage Coordination', 'Team Liaison (13 nations)', 'Run-of-Show'],
+    cover:   '/images/project-taekwondo.jpg',
+    accent:  '#3E7CCB',
   },
   {
-    slug: 'vietinbank-countdown-2025',
-    index: '02',
-    year:  '2024 / 2025',
-    kicker: 'Brand Live Show',
-    title: 'Vietinbank Countdown 2025 — Trust the Moment',
-    venue: 'Hanoi Opera House',
-    summary:
-      'Stage coordination and artist care for the headlining countdown broadcast on New Year\u2019s Eve. Cinematic main stage, simultaneous outdoor zone.',
-    roles: ['Stage Coordination', 'Artist Liaison', 'Backstage Run'],
-    cover:  '/images/project-vietinbank.jpg',
-    accent: '#3E7CCB',
+    slug:    'vietinbank-countdown-2025',
+    index:   '02',
+    year:    '2024 / 2025',
+    kicker:  'Brand Live Show',
+    title:   'Vietinbank Countdown 2025 — Trust the Moment',
+    venue:   'Hanoi Opera House',
+    summary: "Stage coordination and artist care for the headlining countdown broadcast on New Year's Eve. Cinematic main stage, simultaneous outdoor zone.",
+    roles:   ['Stage Coordination', 'Artist Liaison', 'Backstage Run'],
+    cover:   '/images/project-vietinbank.jpg',
+    accent:  '#B8542B',
   },
   {
-    slug: 'phan-manh-quynh-concert',
-    index: '03',
-    year:  '2024 / 2025',
-    kicker: 'First Live Concert',
-    title: 'Phan Mạnh Quỳnh — Chuyến tàu mùa Đông / mùa Xuân',
-    venue: 'Nguyễn Du Stadium · Quần Ngựa Stadium',
-    summary:
-      'Show-assistant for the artist\u2019s first headlining live concert series. Wrangled run-of-show details from soundcheck to encore across two stadium runs.',
-    roles: ['Show Assistant', 'Artist Care', 'Stage Coordination'],
-    cover:  '/images/project-phanmanhquynh.jpg',
-    accent: '#D4A656',
+    slug:    'phan-manh-quynh-concert',
+    index:   '03',
+    year:    '2024 / 2025',
+    kicker:  'First Live Concert',
+    title:   'Phan Mạnh Quỳnh — Chuyến tàu mùa Đông / mùa Xuân',
+    venue:   'Nguyễn Du Stadium · Quần Ngựa Stadium',
+    summary: "Show-assistant for the artist's first headlining live concert series. Wrangled run-of-show details from soundcheck to encore across two stadium runs.",
+    roles:   ['Show Assistant', 'Artist Care', 'Stage Coordination'],
+    cover:   '/images/project-phanmanhquynh.jpg',
+    accent:  '#3E7CCB',
   },
   {
-    slug: 'event-portfolio-2024-2025',
-    index: '04',
-    year:  '2024 — 2025',
-    kicker: 'Selected Productions',
-    title: 'Sống Trong Lòng Dân · PJICO Fest · Tâm Thức Tinh Hoa',
-    venue: 'Multiple venues · Hanoi & national',
-    summary:
-      'A run of stage coordination work across institutional, corporate, and cultural productions — from Ministry events to bank-headlined festivals.',
-    roles: ['Stage Coordination', 'Production Liaison'],
-    cover:  '/images/project-events-collage.jpg',
-    accent: '#3E7CCB',
+    slug:    'event-portfolio-2024-2025',
+    index:   '04',
+    year:    '2024 — 2025',
+    kicker:  'Selected Productions',
+    title:   'Sống Trong Lòng Dân · PJICO Fest · Tâm Thức Tinh Hoa',
+    venue:   'Multiple venues · Hanoi & national',
+    summary: 'A run of stage coordination work across institutional, corporate, and cultural productions — from Ministry events to bank-headlined festivals.',
+    roles:   ['Stage Coordination', 'Production Liaison'],
+    cover:   '/images/project-events-collage.jpg',
+    accent:  '#B8542B',
   },
   {
-    slug: 'nhan-dan-tv-journalism',
-    index: '05',
-    year:  '2023',
-    kicker: 'Editorial Internship',
-    title: 'Nhan Dan Television — Foreign Affairs Bureau',
-    venue: '2 Le Thach, Hanoi',
-    summary:
-      'Editorial internship covering Ministry of Foreign Affairs press briefings and producing bilingual broadcast packages.',
-    roles: ['Editor (Internship)', 'EN—VI Translation', 'Press Coverage'],
-    cover:  '/images/project-journalism.jpg',
-    accent: '#0A0F1F',
+    slug:    'nhan-dan-tv-journalism',
+    index:   '05',
+    year:    '2023',
+    kicker:  'Editorial Internship',
+    title:   'Nhan Dan Television — Foreign Affairs Bureau',
+    venue:   '2 Le Thach, Hanoi',
+    summary: 'Editorial internship covering Ministry of Foreign Affairs press briefings and producing bilingual broadcast packages.',
+    roles:   ['Editor (Internship)', 'EN—VI Translation', 'Press Coverage'],
+    cover:   '/images/project-journalism.jpg',
+    accent:  '#3E7CCB',
   },
 ] as const;
 
 export type Project = typeof projects[number];
 
-/**
- * Experience timeline — most-recent first.
- */
+// ============================================================
+// Experience
+// ============================================================
 export const experience = [
   {
     period: '2025 — Now',
@@ -145,51 +148,31 @@ export const experience = [
   },
 ] as const;
 
-/**
- * Skills — grouped to read editorially rather than as a wall of badges.
- */
+// ============================================================
+// Skills (renamed from "Tools" in original)
+// ============================================================
 export const skills = [
   {
     group: 'Live Production',
-    items: [
-      'On-site Execution',
-      'Artist & Talent Coordination',
-      'Run-of-Show',
-      'Stakeholder Liaison',
-    ],
+    items: ['On-site Execution', 'Artist & Talent Coordination', 'Run-of-Show', 'Stakeholder Liaison'],
   },
   {
     group: 'Content & Editorial',
-    items: [
-      'Content Direction',
-      'Copywriting (EN / VI)',
-      'Editing & Storytelling',
-      'Press Coverage',
-    ],
+    items: ['Content Direction', 'Copywriting (EN / VI)', 'Editing & Storytelling', 'Press Coverage'],
   },
   {
     group: 'Craft & Tools',
-    items: [
-      'Photoshop',
-      'Premiere Pro',
-      'CapCut',
-      'Canva',
-      'Microsoft / Google Workspace',
-    ],
+    items: ['Photoshop', 'Premiere Pro', 'CapCut', 'Canva', 'Microsoft / Google Workspace'],
   },
   {
     group: 'Languages',
-    items: [
-      'English — C1 (Advanced)',
-      'Vietnamese — Native',
-      'EN ↔ VI Translation & Transcription',
-    ],
+    items: ['English — C1 (Advanced)', 'Vietnamese — Native', 'EN ↔ VI Translation & Transcription'],
   },
 ] as const;
 
-/**
- * Education timeline.
- */
+// ============================================================
+// Education
+// ============================================================
 export const education = [
   {
     school: 'Academy of Journalism & Communication',
