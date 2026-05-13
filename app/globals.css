@@ -1,0 +1,218 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===================================================================
+   Root tokens
+   ------------------------------------------------------------------
+   Kept thin — most styling lives in tailwind.config.js. These are
+   the values that JS needs to read or that CSS-only selectors use.
+   =================================================================== */
+:root {
+  --color-ink:    #0A0F1F;
+  --color-ink-deep: #06091A;
+  --color-cream:  #F4EFE6;
+  --color-azure:  #3E7CCB;
+  --color-bone:   #EAE3D2;
+  --color-rust:   #B8542B;
+
+  /* Cursor ring size (used by JS cursor) */
+  --cursor-size: 16px;
+
+  /* Page baseline */
+  --page-padding-x: clamp(1.5rem, 5vw, 4rem);
+}
+
+/* ===================================================================
+   Reset extensions
+   =================================================================== */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  /* Lenis controls scroll, but we still set this so it falls back gracefully
+     for users with reduced-motion preference (Lenis disables itself there). */
+  scroll-behavior: auto;
+  -webkit-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+body {
+  background: var(--color-cream);
+  color: var(--color-ink);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  font-feature-settings: "ss01", "ss02", "cv11";
+  overflow-x: hidden;
+}
+
+/* Hide native cursor ONLY on devices with a fine pointer (mouse/trackpad).
+   Touch devices still get the system cursor for accessibility. */
+@media (pointer: fine) {
+  body.has-custom-cursor,
+  body.has-custom-cursor * {
+    cursor: none !important;
+  }
+}
+
+::selection {
+  background: var(--color-azure);
+  color: var(--color-cream);
+}
+
+/* Slim scrollbar that matches the editorial feel.
+   Lenis hides this most of the time — we only see it on momentum scroll. */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: rgba(10, 15, 31, 0.2);
+  border-radius: 999px;
+}
+
+/* ===================================================================
+   Custom utilities
+   =================================================================== */
+@layer utilities {
+
+  /* Edge-to-edge container with cinematic gutter */
+  .container-edge {
+    width: 100%;
+    padding-left: var(--page-padding-x);
+    padding-right: var(--page-padding-x);
+  }
+
+  /* Display type ligatures + alternate stylistic sets — gives editorial feel */
+  .font-stylize {
+    font-feature-settings: "ss01" 1, "ss02" 1, "ss03" 1, "liga" 1, "dlig" 1;
+  }
+
+  /* Used by the magnetic-button hover state */
+  .magnetic { will-change: transform; }
+
+  /* GPU-accelerated transform layer for parallax/marquee/cursor */
+  .gpu { transform: translateZ(0); will-change: transform; backface-visibility: hidden; }
+
+  /* Glassmorphism — used VERY lightly, per the brief, on the floating nav only */
+  .glass {
+    background: rgba(244, 239, 230, 0.55);
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+    border: 1px solid rgba(10, 15, 31, 0.06);
+  }
+
+  .glass-dark {
+    background: rgba(10, 15, 31, 0.4);
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+    border: 1px solid rgba(244, 239, 230, 0.06);
+  }
+
+  /* Mask gradient used on horizontal marquees so they fade into the gutters
+     rather than hard-cutting at the edge of the viewport. */
+  .marquee-mask {
+    mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+  }
+
+  /* Soft horizontal divider — used between editorial sections */
+  .hairline {
+    height: 1px;
+    width: 100%;
+    background: linear-gradient(90deg, transparent, rgba(10, 15, 31, 0.18), transparent);
+  }
+
+  .hairline-light {
+    background: linear-gradient(90deg, transparent, rgba(244, 239, 230, 0.18), transparent);
+  }
+
+  /* Fine textured noise overlay — adds tactile feel.
+     Pure SVG, no image request, no network. */
+  .grain-overlay::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.06;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    background-size: 220px 220px;
+    animation: grain 8s steps(10) infinite;
+  }
+
+  .grain-overlay-dark::after {
+    mix-blend-mode: screen;
+    opacity: 0.09;
+  }
+
+  /* Reveal masks — used by Framer Motion for typography reveals.
+     The text is pre-clipped; motion reveals it line by line. */
+  .reveal-line {
+    overflow: hidden;
+    display: inline-block;
+  }
+
+  /* Image hover distortion mask — tiny scale + brightness shift, GSAP-friendly */
+  .img-distort {
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .img-distort img,
+  .img-distort > div {
+    transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1),
+                filter 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .img-distort:hover img,
+  .img-distort:hover > div {
+    transform: scale(1.045);
+    filter: brightness(1.06) contrast(1.04);
+  }
+
+  /* Vertical writing-mode label — used for the side index counters */
+  .vertical-rl {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+  }
+
+  /* Soft drop shadow that matches the warm cream background.
+     Pure box-shadow on cream needs a tinted shadow, otherwise it looks gray. */
+  .shadow-editorial {
+    box-shadow:
+      0 2px 6px rgba(10, 15, 31, 0.04),
+      0 24px 48px -16px rgba(10, 15, 31, 0.18);
+  }
+}
+
+/* ===================================================================
+   Reduced motion — respect the user's preference.
+   Lenis disables itself but Framer Motion needs a global helper.
+   =================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .grain-overlay::after { animation: none; }
+}
