@@ -3,25 +3,23 @@ import { About } from '@/components/sections/About';
 import { Experience } from '@/components/sections/Experience';
 import { Work } from '@/components/sections/Work';
 import { Skills } from '@/components/sections/Skills';
-import { Philosophy } from '@/components/sections/Philosophy';
 import { Hobbies } from '@/components/sections/Hobbies';
 import { Contact } from '@/components/sections/Contact';
 import { Footer } from '@/components/ui/Footer';
 
 /**
- * Section ordering — current:
+ * Section ordering — final:
  *
  *   Hero        — landing
  *   About       — note
  *   Experience  — "Lineage" (includes Education)
  *   Work        — selected projects
  *   Skills      — the kit
- *   Philosophy  — the statement
  *   Hobbies     — off-hours / personal
  *   Contact     — close
  *
- * Hobbies sits after Philosophy and before Contact so the page closes
- * with the personal side — softens the corporate edge before the CTA.
+ * Philosophy section was removed — felt unnecessary, slowed the read.
+ * Hobbies now does the "human side" job before the CTA.
  */
 export default function HomePage() {
   return (
@@ -31,7 +29,6 @@ export default function HomePage() {
       <Experience />
       <Work />
       <Skills />
-      <Philosophy />
       <Hobbies />
       <Contact />
       <Footer />
