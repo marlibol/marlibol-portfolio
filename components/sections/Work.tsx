@@ -7,15 +7,12 @@ import { SplitText } from '@/components/animations/SplitText';
 import { projects } from '@/lib/content';
 
 /**
- * Work — the centerpiece. Selected projects, each as its own film frame.
+ * Work — selected projects, each rendered as a film frame.
  *
- * Between every two projects we drop a kinetic marquee. It serves two
- * purposes:
- *   - Visual break so the page doesn't read as a stack of identical cards
- *   - Acts as a "scene change" — projects feel like chapters rather than items
- *
- * The section opens with an editorial header that establishes the curation
- * (it's "Selected Works", not "All Works"). Curation is part of the credibility.
+ * Contrast fix (v2):
+ * The marquee titles between cards were rendering at text-ink/15 — way too
+ * faded, looked like artifacts. Bumped to /35 so they read as deliberate
+ * background type instead of broken text. The azure stars keep their punch.
  */
 export function Work() {
   return (
@@ -70,7 +67,10 @@ export function Work() {
             <div key={p.slug}>
               <ProjectCard project={p} i={i} />
 
-              {/* Marquee divider — only between projects, not after the last */}
+              {/* Marquee divider — only between projects, not after the last.
+                  Contrast bump: text-ink/15 → text-ink/35 so titles read as
+                  intentional background type, not broken renders. Azure stars
+                  also nudged from /40 to /50 to match. */}
               {i < projects.length - 1 && (
                 <div className="mt-24 md:mt-40">
                   <Marquee
@@ -78,11 +78,11 @@ export function Work() {
                     direction={i % 2 === 0 ? 'left' : 'right'}
                     className="py-6"
                   >
-                    <span className="font-display text-[clamp(2.5rem,7vw,6rem)] font-light italic leading-none text-ink/15 whitespace-nowrap">
+                    <span className="font-display text-[clamp(2.5rem,7vw,6rem)] font-light italic leading-none text-ink/35 whitespace-nowrap">
                       {p.title}&nbsp;
-                      <span className="not-italic text-azure/40 mx-6">★</span>
+                      <span className="not-italic text-azure/50 mx-6">★</span>
                       &nbsp;{p.venue}&nbsp;
-                      <span className="not-italic text-azure/40 mx-6">★</span>
+                      <span className="not-italic text-azure/50 mx-6">★</span>
                       &nbsp;
                     </span>
                   </Marquee>
