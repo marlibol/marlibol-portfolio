@@ -7,12 +7,14 @@ import { Magnetic } from '@/components/animations/Magnetic';
 import { site } from '@/lib/content';
 import { cn } from '@/lib/cn';
 
-const NAV_ITEMS = [
-  { label: 'Index',   href: '#hero' },
-  { label: 'Note',    href: '#about' },
-  { label: 'Work',    href: '#work' },
-  { label: 'Lineage', href: '#experience' },
-  { label: 'Contact', href: '#contact' },
+const navItems = [
+  { label: 'Index',     href: '#hero',       n: '01' },
+  { label: 'Note',      href: '#about',      n: '02' },
+  { label: 'Lineage',   href: '#experience', n: '03' },
+  { label: 'Work',      href: '#work',       n: '04' },
+  { label: 'Skills',    href: '#skills',     n: '05' },
+  { label: 'Off-hours', href: '#hobbies',    n: '06' },
+  { label: 'Contact',   href: '#contact',    n: '07' },
 ];
 
 /**
