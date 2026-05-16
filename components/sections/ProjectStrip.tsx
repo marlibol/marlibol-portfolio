@@ -46,7 +46,7 @@ export function ProjectStrip({ items }: ProjectStripProps) {
           }}
           className="group relative border-b border-ink/12 last:border-b-0"
         >
-          
+          <a
             href="#work"
             data-cursor="view"
             className="grid grid-cols-[100px_1fr_auto_24px] md:grid-cols-[160px_1fr_120px_24px] gap-4 md:gap-8 items-center py-6 md:py-7 transition-[padding] duration-500 ease-expo-out group-hover:pl-4"
