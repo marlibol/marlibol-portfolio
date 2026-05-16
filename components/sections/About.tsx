@@ -29,7 +29,7 @@ export function About() {
         {/* Section index + label */}
         <div className="mb-16 md:mb-24 flex items-end justify-between">
           <span className="font-mono text-[11px] uppercase tracking-[0.3em] text-ink/50">
-            01 / Note
+            02 / Note
           </span>
           <span className="font-mono text-[11px] uppercase tracking-[0.3em] text-ink/50 hidden md:block">
             On the work, in plain words
