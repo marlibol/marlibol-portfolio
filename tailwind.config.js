@@ -98,10 +98,10 @@ module.exports = {
       // Use these on <section> instead of mixed py-24/py-40.
       // Keeps density consistent and easier to tune later.
       spacing: {
-        'section-sm': '4rem',   // 64px  ~ tight cinematic sections
-        'section-md': '6rem',   // 96px  ~ default editorial
-        'section-lg': '8.75rem', // 140px ~ feature sections
-        'section-xl': '12rem',  // 192px ~ legacy v1 (py-40 = 160px)
+        'section-sm': '3rem',    // 48px  ~ tight cinematic sections
+        'section-md': '4.5rem',  // 72px  ~ default editorial
+        'section-lg': '6rem',    // 96px  ~ feature sections
+        'section-xl': '8rem',    // 128px ~ legacy max
       },
       transitionTimingFunction: {
         'expo-out': 'cubic-bezier(0.16, 1, 0.3, 1)',
