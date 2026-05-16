@@ -4,24 +4,24 @@ import { Experience } from '@/components/sections/Experience';
 import { Work } from '@/components/sections/Work';
 import { Skills } from '@/components/sections/Skills';
 import { Philosophy } from '@/components/sections/Philosophy';
+import { Hobbies } from '@/components/sections/Hobbies';
 import { Contact } from '@/components/sections/Contact';
 import { Footer } from '@/components/ui/Footer';
 
 /**
- * Section ordering — updated per feedback:
+ * Section ordering — current:
  *
- *   Hero        — landing, atmospheric
- *   About       — note, intimate
- *   Experience  — "Lineage / Where I've been" (includes Education block)
+ *   Hero        — landing
+ *   About       — note
+ *   Experience  — "Lineage" (includes Education)
  *   Work        — selected projects
  *   Skills      — the kit
  *   Philosophy  — the statement
+ *   Hobbies     — off-hours / personal
  *   Contact     — close
  *
- * Note: Experience was moved BEFORE Work so the timeline of jobs reads
- * before the projects list. Education stays nested inside the Experience
- * section for now — it can be promoted to a standalone section later if
- * needed.
+ * Hobbies sits after Philosophy and before Contact so the page closes
+ * with the personal side — softens the corporate edge before the CTA.
  */
 export default function HomePage() {
   return (
@@ -32,6 +32,7 @@ export default function HomePage() {
       <Work />
       <Skills />
       <Philosophy />
+      <Hobbies />
       <Contact />
       <Footer />
     </main>
