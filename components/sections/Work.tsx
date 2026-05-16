@@ -11,14 +11,8 @@ import { projects } from '@/lib/content';
 /**
  * Work — Selected projects section.
  *
- * R5 final composition:
- *   1. Section header (Selected works.)
- *   2. Featured project full-bleed (Taekwondo — projects[0])
- *   3. Kinetic marquee divider
- *   4. Polaroid grid (3 cards)
- *   5. Strip view (rest of projects)
- *
- * Old v1 card list removed. Taekwondo duplicate removed.
+ * R5d: restored Vietnamese diacritics in labels and titles now that the
+ * structure is confirmed stable.
  */
 export function Work() {
   const featured = projects[0];
@@ -32,13 +26,13 @@ export function Work() {
     },
     {
       cover: '/images/polaroid-phanmanhquynh.jpg',
-      label: 'PHAN MANH QUYNH',
-      sub:   'Chuyen tau mua Dong · 2024',
+      label: 'PHAN MẠNH QUỲNH',
+      sub:   'Chuyến tàu mùa Đông · 2024',
       alt:   'Phan Manh Quynh first concert stage',
     },
     {
       cover: '/images/polaroid-tamthuctinhhoa.jpg',
-      label: 'TAM THUC TINH HOA',
+      label: 'TÂM THỨC TINH HOA',
       sub:   'Cultural festival · MSB · 2024',
       alt:   'Tam Thuc Tinh Hoa stage with title backdrop',
     },
@@ -47,15 +41,15 @@ export function Work() {
   const stripItems = [
     {
       cover: '/images/strip-songtronglongdan.jpg',
-      title: 'Song Trong Long Dan',
+      title: 'Sống Trong Lòng Dân',
       venue: 'Cultural production · Ministry of Public Security',
       year:  '2024',
       alt:   'Song Trong Long Dan stage with sunflower backdrop',
     },
     {
       cover: '/images/strip-nhandantv.jpg',
-      title: 'Nhan Dan TV - Foreign Affairs',
-      venue: 'Press internship · 2 Le Thach, Ha Noi',
+      title: 'Nhân Dân TV — Foreign Affairs',
+      venue: 'Press internship · 2 Lê Thạch, Hà Nội',
       year:  '2023',
       alt:   'Nhan Dan Television channel logo',
     },
@@ -122,17 +116,17 @@ export function Work() {
         <Marquee speed={50} direction="left" className="py-4">
           <span className="font-display text-[clamp(2.5rem,7vw,5rem)] font-light italic leading-none text-ink/35 whitespace-nowrap">
             Taekwondo Championships
-            <span className="not-italic text-azure/55 mx-6">*</span>
+            <span className="not-italic text-azure/55 mx-6">★</span>
             Vietinbank Countdown
-            <span className="not-italic text-azure/55 mx-6">*</span>
-            Phan Manh Quynh
-            <span className="not-italic text-azure/55 mx-6">*</span>
-            Tam Thuc Tinh Hoa
-            <span className="not-italic text-azure/55 mx-6">*</span>
-            Song Trong Long Dan
-            <span className="not-italic text-azure/55 mx-6">*</span>
-            Nhan Dan TV
-            <span className="not-italic text-azure/55 mx-6">*</span>
+            <span className="not-italic text-azure/55 mx-6">★</span>
+            Phan Mạnh Quỳnh
+            <span className="not-italic text-azure/55 mx-6">★</span>
+            Tâm Thức Tinh Hoa
+            <span className="not-italic text-azure/55 mx-6">★</span>
+            Sống Trong Lòng Dân
+            <span className="not-italic text-azure/55 mx-6">★</span>
+            Nhân Dân TV
+            <span className="not-italic text-azure/55 mx-6">★</span>
           </span>
         </Marquee>
       </div>
