@@ -2,23 +2,17 @@
 
 import { motion } from 'framer-motion';
 import { SplitText } from '@/components/animations/SplitText';
+import { Marquee } from '@/components/ui/Marquee';
 import { site } from '@/lib/content';
 
 /**
- * Contact — refined R8 (closing magazine spread).
+ * Contact — refined R9b.
  *
- * Final section of the site. Direction:
- *   - Full-bleed hero with cinematic gradient (placeholder until photo).
- *   - Two stamps: "End spread · 07/07" white + "Hà Nội / 2026" mono.
- *   - Big title "Get in touch." in Fraunces over the hero.
- *   - Body: pull quote left + contact list right.
- *   - Contact rows are real links (mailto, tel, IG, LinkedIn) with hover
- *     slide + arrow turning rust.
- *   - Handwritten italic endnote rotated 1°.
- *   - Footer signature "— marlibol" italic rotated -1.5°.
+ * Adds the big "marlibol" outro marquee at the very bottom — a giant
+ * marquee that scrolls horizontally as the user reaches the end of the
+ * page. Acts like a magazine spine/outro.
  *
- * When user adds a real closing image (/images/contact-closing.jpg), flip
- * the `closingImageReady` flag and replace the gradient div with <Image>.
+ * Other content unchanged from R8.
  */
 
 const closingImageReady = false;
@@ -31,7 +25,6 @@ export function Contact() {
     >
       {/* HERO SPREAD — full-bleed 21:9 */}
       <div className="relative w-full aspect-[21/9] min-h-[320px] md:min-h-[420px] overflow-hidden">
-        {/* Gradient placeholder (will be replaced by real image) */}
         <div
           className="absolute inset-0"
           style={{
@@ -41,7 +34,6 @@ export function Contact() {
           aria-hidden
         />
 
-        {/* Bottom-to-top vignette so stamps stay readable */}
         <span
           aria-hidden
           className="absolute inset-0 pointer-events-none"
@@ -51,20 +43,17 @@ export function Contact() {
           }}
         />
 
-        {/* Top-left stamp */}
         <div className="absolute top-5 left-5 md:top-7 md:left-7 z-10">
           <span className="px-2.5 py-1 bg-cream text-ink font-mono text-[10px] uppercase tracking-[0.25em]">
             End spread · 07 / 07
           </span>
         </div>
 
-        {/* Top-right meta stamp */}
         <div className="absolute top-5 right-5 md:top-7 md:right-7 z-10 text-right font-mono text-[10px] uppercase tracking-[0.25em] text-cream/85 leading-relaxed">
           <div>Hà Nội</div>
           <div>2026</div>
         </div>
 
-        {/* Center-left title */}
         <div className="absolute left-5 md:left-10 lg:left-14 bottom-12 md:bottom-16 z-10">
           <SplitText
             as="h2"
@@ -83,12 +72,10 @@ export function Contact() {
           </SplitText>
         </div>
 
-        {/* Bottom-left caption */}
         <span className="absolute bottom-5 left-5 md:bottom-7 md:left-10 z-10 font-mono text-[10px] uppercase tracking-[0.22em] text-cream/85">
           Closing image · 2026
         </span>
 
-        {/* Bottom-right caption */}
         <span className="absolute bottom-5 right-5 md:bottom-7 md:right-7 z-10 font-mono text-[10px] uppercase tracking-[0.22em] text-cream/85 text-right max-w-[200px]">
           For commissions and conversations.
         </span>
@@ -97,7 +84,6 @@ export function Contact() {
       {/* BODY — pull quote left + contact list right */}
       <div className="container-edge py-section-md md:py-section-lg relative">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-start">
-          {/* Left column — pull quote */}
           <div>
             <span className="font-mono text-meta text-cream/55 mb-4 block">
               / A final note
@@ -113,7 +99,6 @@ export function Contact() {
             </p>
           </div>
 
-          {/* Right column — contact list */}
           <ul className="flex flex-col">
             <ContactRow
               label="Email"
@@ -144,7 +129,6 @@ export function Contact() {
           </ul>
         </div>
 
-        {/* Handwritten endnote — bottom right, rotated */}
         <p
           className="hidden md:block absolute font-display italic text-sm text-cream/40 max-w-[260px] leading-snug text-right"
           style={{
@@ -157,7 +141,7 @@ export function Contact() {
         </p>
       </div>
 
-      {/* FOOTER strip */}
+      {/* FOOTER strip — designed/built credits + signature */}
       <div className="border-t border-cream/15 px-5 md:px-10 lg:px-14 py-6 md:py-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div className="font-mono text-meta-xs text-cream/45 leading-relaxed">
           <div>Designed &amp; built in Hanoi</div>
@@ -167,13 +151,27 @@ export function Contact() {
           &mdash; marlibol
         </span>
       </div>
+
+      {/* MARLIBOL OUTRO MARQUEE — giant scrolling text at the very bottom.
+          Reveals as user scrolls past the footer. Acts like a magazine
+          spine/outro statement. */}
+      <div className="border-t border-cream/10 py-8 md:py-12 overflow-hidden">
+        <Marquee speed={35} direction="left" className="py-2">
+          <span className="font-display text-[clamp(5rem,15vw,14rem)] font-light italic leading-[0.85] tracking-tightest text-cream whitespace-nowrap">
+            marlibol
+            <span className="not-italic text-azure mx-8 md:mx-14">.</span>
+            marlibol
+            <span className="not-italic text-azure mx-8 md:mx-14">.</span>
+            marlibol
+            <span className="not-italic text-azure mx-8 md:mx-14">.</span>
+            marlibol
+            <span className="not-italic text-azure mx-8 md:mx-14">.</span>
+          </span>
+        </Marquee>
+      </div>
     </section>
   );
 }
-
-// ============================================================
-// ContactRow — single row in the contact list
-// ============================================================
 
 type ContactRowProps = {
   label: string;
