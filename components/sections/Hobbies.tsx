@@ -109,7 +109,7 @@ export function Hobbies() {
         </div>
 
         {/* Headline */}
-        <div className="mb-16 md:mb-24">
+        <div className="mb-10 md:mb-14">
           <SplitText
             as="h2"
             className="font-display text-giant font-light leading-[0.92] tracking-tightest text-ink"
