@@ -70,23 +70,32 @@ export function Experience() {
           ))}
         </ul>
 
-        {/* Education — slim section underneath, no rebuild */}
-        <div className="mt-24 md:mt-28 hairline hairline-light" />
-        <div className="mt-12 md:mt-16">
-          <span className="font-mono text-meta text-cream/55">
-            / Education
-          </span>
-          <ul className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+        {/* Education — refined R9b: bumped text sizes + tighter spacing */}
+        <div className="mt-16 md:mt-20 hairline hairline-light" />
+        <div className="mt-10 md:mt-14">
+          <div className="flex items-end justify-between mb-8">
+            <span className="font-mono text-meta text-cream/55">
+              / Education
+            </span>
+            <span className="font-mono text-meta-xs text-cream/40 hidden md:block">
+              {String(education.length).padStart(2, '0')} schools
+            </span>
+          </div>
+          <ul className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-14">
             {education.map((ed) => (
-              <li key={ed.school} className="border-l border-cream/15 pl-6">
-                <p className="font-mono text-meta-xs text-cream/50 mb-2">
+              <li key={ed.school} className="border-l border-cream/20 pl-6">
+                <p className="font-mono text-meta text-cream/55 mb-3">
                   {ed.period}
                 </p>
-                <h4 className="font-display text-xl md:text-2xl font-light text-cream leading-tight">
+                <h4 className="font-display text-editorial-md font-light text-cream leading-[1.1] tracking-tightest">
                   {ed.school}
                 </h4>
-                <p className="mt-1 italic text-cream/70">{ed.degree}</p>
-                <p className="mt-2 text-cream/55 text-sm">{ed.note}</p>
+                <p className="mt-2 font-display italic text-lg md:text-xl text-cream/70">
+                  {ed.degree}
+                </p>
+                <p className="mt-3 text-cream/65 text-body-lg leading-relaxed">
+                  {ed.note}
+                </p>
               </li>
             ))}
           </ul>
