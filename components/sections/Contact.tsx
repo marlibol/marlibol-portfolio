@@ -32,7 +32,7 @@ export function Contact() {
           <div className="mb-20 md:mb-32">
             <div className="flex items-end justify-between mb-10">
               <span className="font-mono text-[11px] uppercase tracking-[0.3em] text-cream/50">
-                06 / Contact
+                07 / Contact
               </span>
               <span className="font-mono text-[11px] uppercase tracking-[0.3em] text-cream/50 hidden md:block">
                 Available, Spring 2026
