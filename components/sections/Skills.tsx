@@ -89,7 +89,7 @@ export function Skills() {
                 {group.items.map((item, i) => (
                   <li
                     key={item}
-                    className="font-display text-lg md:text-xl font-light text-cream/90 leading-relaxed py-2 border-b border-dashed border-cream/10 last:border-b-0"
+                    className="font-display text-xl md:text-[22px] font-light text-cream/95 leading-relaxed py-2.5 border-b border-dashed border-cream/15 last:border-b-0"
                   >
                     {item}
                   </li>
