@@ -2,6 +2,9 @@
  * Site content — single source of truth.
  *
  * Edit values here and the whole site updates.
+ *
+ * R3 update: each experience entry now has an optional `tags` array used
+ * by the redesigned Lineage section to show chapter-style category pills.
  */
 
 // ============================================================
@@ -19,8 +22,10 @@ export const site = {
     linkedin:  'https://www.linkedin.com/in/mai-linh-ho-596558207/',
   },
   tagline: 'Producing stories on stage and on screen.',
-  // Philosophy stays nested in `site` so components reading
-  // `site.philosophy.body` keep working.
+  // Philosophy stays nested inside `site` for back-compat with any v1
+  // component that still references site.philosophy.body. The Philosophy
+  // section has been removed from the page but the data lives on here
+  // — harmless and easy to restore if ever wanted.
   philosophy: {
     title: 'A note on the work.',
     body:  "I work where journalism meets stagecraft — coordinating artists, building moments, telling stories that hold a room of people for a few hours. The events I produce aren't products. They're memory, lit and rehearsed. My job is to make sure nothing breaks the spell.",
@@ -106,43 +111,51 @@ export type Project = typeof projects[number];
 
 // ============================================================
 // Experience
+// R3: added `tags` array (category pills shown in Lineage section)
 // ============================================================
 export const experience = [
   {
     period: '2025 — Now',
     role:   'Freelance Producer',
     org:    'Independent · Hanoi',
-    note:   'Selected event + content commissions.',
+    note:   'Selected event + content commissions for institutional, brand, and editorial clients across Vietnam.',
+    tags:   ['Events', 'Editorial', 'Brand'],
+    current: true,
   },
   {
     period: '11/2025 — 2/2026',
     role:   'Social Media Researcher',
     org:    'STATT Consulting',
-    note:   'Quantitative & qualitative social research.',
-  },
-  {
-    period: 'Oct 2024 — Apr 2025',
-    role:   'Event Executive (Probation)',
-    org:    'ZEIT — art comes first',
-    note:   'Stage coordination for major live productions.',
+    note:   'Quantitative & qualitative social research — dashboards, content audits, and platform-level insights.',
+    tags:   ['Research', 'Social'],
   },
   {
     period: 'Jul 2025',
     role:   'Conference Transcriber',
     org:    'Techcombank Investment Summit',
-    note:   'EN—VI live transcription, panel sessions.',
+    note:   'EN—VI live transcription across panel sessions, keynotes, and side conversations.',
+    tags:   ['Transcription', 'Conference', 'EN-VI'],
+  },
+  {
+    period: 'Oct 2024 — Apr 2025',
+    role:   'Event Executive',
+    org:    'ZEIT — art comes first',
+    note:   'Stage coordination for major live productions — Vietinbank Countdown 2025, Phan Mạnh Quỳnh concert series, and cultural festivals.',
+    tags:   ['Stage', 'Live Show', 'Concert'],
   },
   {
     period: 'Sep 2023 — Oct 2024',
     role:   'Social Media Manager / Content Creator',
     org:    'MVP Academy',
-    note:   'Cross-platform content strategy and execution.',
+    note:   'Cross-platform content strategy and execution. Built editorial calendar across IG, TikTok, FB for academic brand.',
+    tags:   ['Content', 'Strategy', 'Social'],
   },
   {
     period: 'Mar 2023 — Jun 2023',
     role:   'Editor (Internship)',
     org:    'Nhan Dan Television',
-    note:   'Foreign Affairs press coverage.',
+    note:   'Foreign Affairs press coverage. Bilingual broadcast packages on Ministry events.',
+    tags:   ['Press', 'EN-VI'],
   },
 ] as const;
 
