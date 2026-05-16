@@ -2,176 +2,221 @@
 
 import { motion } from 'framer-motion';
 import { SplitText } from '@/components/animations/SplitText';
-import { Magnetic } from '@/components/animations/Magnetic';
-import { Spotlight } from '@/components/animations/Spotlight';
 import { site } from '@/lib/content';
 
 /**
- * Contact — the closing section.
+ * Contact — refined R8 (closing magazine spread).
  *
- * The page is a journey from dark (hero) → light (about, work, skills,
- * philosophy) → dark (contact). The return to ink at the end gives the
- * site a sense of having closed a book.
+ * Final section of the site. Direction:
+ *   - Full-bleed hero with cinematic gradient (placeholder until photo).
+ *   - Two stamps: "End spread · 07/07" white + "Hà Nội / 2026" mono.
+ *   - Big title "Get in touch." in Fraunces over the hero.
+ *   - Body: pull quote left + contact list right.
+ *   - Contact rows are real links (mailto, tel, IG, LinkedIn) with hover
+ *     slide + arrow turning rust.
+ *   - Handwritten italic endnote rotated 1°.
+ *   - Footer signature "— marlibol" italic rotated -1.5°.
  *
- * The CTA is a magnetic email button. It's big — about the size of a
- * section heading — because it IS the call to action and the brief said
- * no generic UI blocks.
- *
- * Below the CTA, the socials read like the colophon at the back of a
- * magazine. Quiet, informational, no icons.
+ * When user adds a real closing image (/images/contact-closing.jpg), flip
+ * the `closingImageReady` flag and replace the gradient div with <Image>.
  */
+
+const closingImageReady = false;
+
 export function Contact() {
   return (
-    <Spotlight color="rgba(62, 124, 203, 0.35)" size={560}>
-      <section
-        id="contact"
-        className="relative bg-ink text-cream py-24 md:py-40 grain-overlay grain-overlay-dark overflow-hidden"
-      >
-        <div className="container-edge">
-          {/* Header */}
-          <div className="mb-20 md:mb-32">
-            <div className="flex items-end justify-between mb-10">
-              <span className="font-mono text-[11px] uppercase tracking-[0.3em] text-cream/50">
-                07 / Contact
+    <section
+      id="contact"
+      className="relative bg-ink text-cream grain-overlay grain-overlay-dark overflow-hidden"
+    >
+      {/* HERO SPREAD — full-bleed 21:9 */}
+      <div className="relative w-full aspect-[21/9] min-h-[320px] md:min-h-[420px] overflow-hidden">
+        {/* Gradient placeholder (will be replaced by real image) */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              'linear-gradient(135deg, #1a2540 0%, #3E7CCB 30%, #b8542b 70%, #4a2530 100%)',
+          }}
+          aria-hidden
+        />
+
+        {/* Bottom-to-top vignette so stamps stay readable */}
+        <span
+          aria-hidden
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              'linear-gradient(to bottom, rgba(10,15,31,0.35) 0%, rgba(10,15,31,0.1) 50%, rgba(10,15,31,0.75) 100%)',
+          }}
+        />
+
+        {/* Top-left stamp */}
+        <div className="absolute top-5 left-5 md:top-7 md:left-7 z-10">
+          <span className="px-2.5 py-1 bg-cream text-ink font-mono text-[10px] uppercase tracking-[0.25em]">
+            End spread · 07 / 07
+          </span>
+        </div>
+
+        {/* Top-right meta stamp */}
+        <div className="absolute top-5 right-5 md:top-7 md:right-7 z-10 text-right font-mono text-[10px] uppercase tracking-[0.25em] text-cream/85 leading-relaxed">
+          <div>Hà Nội</div>
+          <div>2026</div>
+        </div>
+
+        {/* Center-left title */}
+        <div className="absolute left-5 md:left-10 lg:left-14 bottom-12 md:bottom-16 z-10">
+          <SplitText
+            as="h2"
+            className="font-display text-editorial-xl font-light leading-[0.92] tracking-tightest text-cream"
+            stagger={0.04}
+          >
+            Get in
+          </SplitText>
+          <SplitText
+            as="h2"
+            className="font-display text-editorial-xl font-light italic leading-[0.92] tracking-tightest text-cream -mt-2"
+            stagger={0.04}
+            delay={0.15}
+          >
+            touch.
+          </SplitText>
+        </div>
+
+        {/* Bottom-left caption */}
+        <span className="absolute bottom-5 left-5 md:bottom-7 md:left-10 z-10 font-mono text-[10px] uppercase tracking-[0.22em] text-cream/85">
+          Closing image · 2026
+        </span>
+
+        {/* Bottom-right caption */}
+        <span className="absolute bottom-5 right-5 md:bottom-7 md:right-7 z-10 font-mono text-[10px] uppercase tracking-[0.22em] text-cream/85 text-right max-w-[200px]">
+          For commissions and conversations.
+        </span>
+      </div>
+
+      {/* BODY — pull quote left + contact list right */}
+      <div className="container-edge py-section-md md:py-section-lg relative">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-start">
+          {/* Left column — pull quote */}
+          <div>
+            <span className="font-mono text-meta text-cream/55 mb-4 block">
+              / A final note
+            </span>
+            <p className="font-display italic text-2xl md:text-[28px] leading-[1.4] text-cream max-w-md">
+              <span className="text-rust font-display not-italic text-5xl leading-[0] align-[-12px] mr-2">
+                &ldquo;
               </span>
-              <span className="font-mono text-[11px] uppercase tracking-[0.3em] text-cream/50 hidden md:block">
-                Available, Spring 2026
-              </span>
-            </div>
-
-            <SplitText
-              as="h2"
-              className="font-display text-mega font-light tracking-tightest leading-[0.86] text-cream"
-              stagger={0.04}
-            >
-              Have a room
-            </SplitText>
-            <SplitText
-              as="h2"
-              className="font-display text-mega font-light italic tracking-tightest leading-[0.86] text-azure -mt-2 md:-mt-4"
-              stagger={0.04}
-              delay={0.15}
-            >
-              to fill?
-            </SplitText>
-          </div>
-
-          {/* Magnetic email CTA */}
-          <div className="mt-16 md:mt-20">
-            <Magnetic strength={0.35}>
-              <a
-                href={`mailto:${site.email}`}
-                data-cursor="hover"
-                className="group inline-flex items-center gap-4 md:gap-6 border-b border-cream/30 pb-3 transition-colors hover:border-azure"
-                aria-label={`Email ${site.email}`}
-              >
-                <span className="font-display font-light italic text-[clamp(2rem,5.5vw,4.5rem)] text-cream leading-none">
-                  Write to me
-                </span>
-                <span
-                  className="inline-block transition-transform duration-500 ease-expo-out group-hover:translate-x-3 group-hover:text-azure"
-                  aria-hidden
-                >
-                  <svg
-                    width="56"
-                    height="24"
-                    viewBox="0 0 56 24"
-                    fill="none"
-                    className="md:w-[72px] md:h-[28px]"
-                  >
-                    <path
-                      d="M44 4l8 8-8 8M0 12h52"
-                      stroke="currentColor"
-                      strokeWidth="1.25"
-                      strokeLinecap="square"
-                    />
-                  </svg>
-                </span>
-              </a>
-            </Magnetic>
-
-            <p className="mt-6 max-w-md text-cream/60 leading-relaxed">
-              For productions, brand commissions, editorial work, or anything
-              else &mdash; the kettle&rsquo;s on. Hanoi-based, available remote.
+              I read every email. Brief or long &mdash; both welcome.
+            </p>
+            <p className="font-mono text-meta-xs text-cream/45 mt-3 pl-2">
+              &mdash; Mai Linh, on incoming mail
             </p>
           </div>
 
-          {/* Colophon — socials + meta in editorial layout */}
-          <div className="mt-24 md:mt-40 hairline hairline-light" />
-          <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
-            <div>
-              <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-cream/40 mb-2">
-                /  Email
-              </p>
-              <a
-                href={`mailto:${site.email}`}
-                data-cursor="hover"
-                className="font-display text-lg md:text-xl font-light text-cream hover:text-azure transition-colors break-all"
-              >
-                {site.email}
-              </a>
-            </div>
-            <div>
-              <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-cream/40 mb-2">
-                /  Based
-              </p>
-              <p className="font-display text-lg md:text-xl font-light text-cream">
-                {site.city}
-              </p>
-            </div>
-            <div>
-              <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-cream/40 mb-2">
-                /  Elsewhere
-              </p>
-              <ul className="flex flex-col gap-1">
-                {Object.entries(site.socials).map(([k, v]) => (
-                  <li key={k}>
-                    <a
-                      href={v}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      data-cursor="hover"
-                      className="font-display text-lg md:text-xl font-light text-cream hover:text-azure transition-colors capitalize inline-flex items-center gap-2 group"
-                    >
-                      {k}
-                      <span
-                        aria-hidden
-                        className="inline-block transition-transform duration-500 ease-expo-out group-hover:translate-x-1"
-                      >
-                        ↗
-                      </span>
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-cream/40 mb-2">
-                /  Languages
-              </p>
-              <p className="font-display text-lg md:text-xl font-light text-cream">
-                EN — C1
-                <br />
-                Vietnamese — Native
-              </p>
-            </div>
-          </div>
+          {/* Right column — contact list */}
+          <ul className="flex flex-col">
+            <ContactRow
+              label="Email"
+              value={site.email}
+              sub="Preferred channel."
+              href={`mailto:${site.email}`}
+            />
+            <ContactRow
+              label="Phone"
+              value={`+84 ${site.phone.slice(1)}`}
+              sub="For urgent productions."
+              href={`tel:+84${site.phone.slice(1)}`}
+            />
+            <ContactRow
+              label="Instagram"
+              value="@marlibol"
+              sub="Photowalks & everyday."
+              href={site.socials.instagram}
+              external
+            />
+            <ContactRow
+              label="LinkedIn"
+              value="Mai Linh Ho"
+              sub="Production CV & references."
+              href={site.socials.linkedin}
+              external
+            />
+          </ul>
         </div>
 
-        {/* Closing oversized signature */}
-        <div className="mt-32 md:mt-44 overflow-hidden">
-          <motion.h2
-            initial={{ y: '50%', opacity: 0 }}
-            whileInView={{ y: '0%', opacity: 1 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
-            className="font-display font-light leading-[0.85] tracking-tightest text-cream text-center"
-            style={{ fontSize: 'clamp(5rem, 22vw, 24rem)' }}
-          >
-            <span className="italic text-azure">marli</span>bol
-          </motion.h2>
+        {/* Handwritten endnote — bottom right, rotated */}
+        <p
+          className="hidden md:block absolute font-display italic text-sm text-cream/40 max-w-[260px] leading-snug text-right"
+          style={{
+            bottom: '40px',
+            right: '40px',
+            transform: 'rotate(1deg)',
+          }}
+        >
+          &ldquo;If you&apos;re scrolling this far, you&apos;re already curious. Say hi.&rdquo;
+        </p>
+      </div>
+
+      {/* FOOTER strip */}
+      <div className="border-t border-cream/15 px-5 md:px-10 lg:px-14 py-6 md:py-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <div className="font-mono text-meta-xs text-cream/45 leading-relaxed">
+          <div>Designed &amp; built in Hanoi</div>
+          <div>&copy; Mai Linh Ho &middot; 2026</div>
         </div>
-      </section>
-    </Spotlight>
+        <span className="font-display italic text-xl md:text-2xl text-cream/85 inline-block" style={{ transform: 'rotate(-1.5deg)' }}>
+          &mdash; marlibol
+        </span>
+      </div>
+    </section>
+  );
+}
+
+// ============================================================
+// ContactRow — single row in the contact list
+// ============================================================
+
+type ContactRowProps = {
+  label: string;
+  value: string;
+  sub: string;
+  href: string;
+  external?: boolean;
+};
+
+function ContactRow({ label, value, sub, href, external }: ContactRowProps) {
+  return (
+    <motion.li
+      initial={{ opacity: 0, x: -16 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      viewport={{ once: true, amount: 0.4 }}
+      transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+      className="group border-b border-cream/12 last:border-b-0"
+    >
+      <a
+        href={href}
+        target={external ? '_blank' : undefined}
+        rel={external ? 'noopener noreferrer' : undefined}
+        data-cursor="hover"
+        className="grid grid-cols-[90px_1fr_20px] md:grid-cols-[110px_1fr_24px] gap-4 items-baseline py-4 md:py-5 transition-[padding] duration-500 ease-expo-out group-hover:pl-3"
+      >
+        <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-cream/55">
+          / {label}
+        </span>
+        <div className="min-w-0">
+          <div className="font-display text-lg md:text-xl font-light text-cream leading-tight tracking-tightest truncate">
+            {value}
+          </div>
+          <div className="font-display italic text-xs md:text-sm text-cream/50 mt-1">
+            {sub}
+          </div>
+        </div>
+        <span
+          aria-hidden
+          className="font-display text-lg text-cream/40 transition-all duration-500 ease-expo-out group-hover:text-rust group-hover:translate-x-1.5"
+        >
+          &rarr;
+        </span>
+      </a>
+    </motion.li>
   );
 }
