@@ -29,7 +29,7 @@ export function Skills() {
         <div className="mb-20 md:mb-28">
           <div className="flex items-end justify-between mb-10">
             <span className="font-mono text-[11px] uppercase tracking-[0.3em] text-ink/50">
-              04 / Tools
+              05 / Skills
             </span>
           </div>
 
