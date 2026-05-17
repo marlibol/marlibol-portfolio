@@ -1,31 +1,22 @@
 'use client';
 
+import { useRef } from 'react';
 import { motion } from 'framer-motion';
 import { SplitText } from '@/components/animations/SplitText';
 import { experience, education } from '@/lib/content';
 
 /**
- * Experience — refined R3 (Lineage with footage texture hover).
+ * Experience — refined R3 + D2.
  *
- * Direction change from v1:
- *   - Bigger role titles (text-editorial-md ~32px Fraunces) so each chapter
- *     reads as the focal point, not the date.
- *   - Tag pills below role (Events / Editorial / Brand etc.) — category
- *     fingerprint for each job.
- *   - "Current" pulse dot on the active job (Freelance Producer).
- *   - Hover reveals a soft footage-texture layer + vignette behind the row.
- *     Layer is gradient + cross-hatch lines to simulate documentary footage
- *     without needing real video files yet.
- *   - Slide-left bar accent on hover (1px → 24px azure).
- *   - Removed Spotlight wrapper (was bleaching text legibility).
- *   - Removed vertical timeline line (too thin to read, replaced by row bars).
+ * D2 update: if a row has a `footage` field (path to an MP4), render a
+ * <video> element as the hover background instead of gradient. Video plays
+ * when row is hovered, pauses on mouse leave. Falls back to gradient if
+ * the row has no footage assigned.
  *
- * Why bg-ink: keeps the dark/cream pacing — Lineage is the 3rd section,
- * needs to feel cinematic between the lighter About above and Work below.
+ * Mobile: video is not autoloaded — saves battery and bandwidth. Gradient
+ * fallback always shows on small screens.
  *
- * Layout:
- *   md+: 3-col grid — Period (140px) | Role+org+tags+note | empty (for hover image space)
- *   mobile: stacked, single column
+ * Other details unchanged from R3.
  */
 export function Experience() {
   return (
@@ -34,7 +25,6 @@ export function Experience() {
       className="relative bg-ink text-cream py-section-lg md:py-section-xl grain-overlay grain-overlay-dark overflow-hidden"
     >
       <div className="container-edge">
-        {/* Section header */}
         <div className="mb-16 md:mb-20 flex items-end justify-between">
           <span className="font-mono text-meta text-cream/55">
             03 / Lineage
@@ -44,7 +34,6 @@ export function Experience() {
           </span>
         </div>
 
-        {/* Two-line headline */}
         <div className="mb-16 md:mb-24">
           <SplitText
             as="h2"
@@ -63,14 +52,13 @@ export function Experience() {
           </SplitText>
         </div>
 
-        {/* Chapter rows */}
         <ul className="flex flex-col">
           {experience.map((row, i) => (
             <ExperienceRow key={row.role + row.period} row={row} index={i} />
           ))}
         </ul>
 
-        {/* Education — refined R9b: bumped text sizes + tighter spacing */}
+        {/* Education — R9b: bumped text sizes + tighter spacing */}
         <div className="mt-16 md:mt-20 hairline hairline-light" />
         <div className="mt-10 md:mt-14">
           <div className="flex items-end justify-between mb-8">
@@ -106,7 +94,7 @@ export function Experience() {
 }
 
 // ============================================================
-// ExperienceRow — single chapter entry with hover footage layer
+// ExperienceRow — single chapter with hover footage layer
 // ============================================================
 
 type RowData = {
@@ -114,9 +102,9 @@ type RowData = {
   role: string;
   org: string;
   note: string;
-  // R3 additions — these may be undefined in any legacy entries.
   tags?: readonly string[];
   current?: boolean;
+  footage?: string;
 };
 
 type Props = {
@@ -124,8 +112,7 @@ type Props = {
   index: number;
 };
 
-// Each row gets a slightly different gradient palette so hover textures
-// feel like distinct "rolls of footage" without being noisy.
+// Gradient palette per row index — used when no footage is assigned.
 const FOOTAGE_GRADIENTS = [
   'linear-gradient(110deg, rgba(184,84,43,0.42) 0%, rgba(16,22,50,0.6) 60%, transparent 100%)',
   'linear-gradient(110deg, rgba(62,124,203,0.38) 0%, rgba(10,15,31,0.6) 60%, transparent 100%)',
@@ -137,6 +124,23 @@ const FOOTAGE_GRADIENTS = [
 
 function ExperienceRow({ row, index }: Props) {
   const gradient = FOOTAGE_GRADIENTS[index % FOOTAGE_GRADIENTS.length];
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  // Play video on hover, pause on leave. Gracefully fails if no video.
+  const handleEnter = () => {
+    if (videoRef.current) {
+      videoRef.current.play().catch(() => {
+        // Ignore autoplay errors (some browsers block until user gesture)
+      });
+    }
+  };
+
+  const handleLeave = () => {
+    if (videoRef.current) {
+      videoRef.current.pause();
+      videoRef.current.currentTime = 0;
+    }
+  };
 
   return (
     <motion.li
@@ -144,21 +148,40 @@ function ExperienceRow({ row, index }: Props) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.3 }}
       transition={{ duration: 0.9, delay: index * 0.06, ease: [0.16, 1, 0.3, 1] }}
+      onMouseEnter={handleEnter}
+      onMouseLeave={handleLeave}
       className="group relative border-b border-cream/10 last:border-b-0 overflow-hidden"
     >
-      {/* Footage layer — gradient + cross-hatch lines on hover.
-          Cross-hatch is two stacked gradients: the color gradient + 1px
-          diagonal lines to simulate VHS scan / film grain texture. */}
+      {/* FOOTAGE LAYER — video if available, else gradient.
+          Both use the same opacity & vignette so the experience reads
+          consistently across rows with and without real footage. */}
+      {row.footage ? (
+        <video
+          ref={videoRef}
+          src={row.footage}
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          aria-hidden
+          className="pointer-events-none absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-45 transition-opacity duration-700 ease-expo-out hidden md:block"
+        />
+      ) : null}
+
+      {/* Gradient fallback — also acts as a tint over video on hover */}
       <span
         aria-hidden
         className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-expo-out"
         style={{
-          backgroundImage: `${gradient}, repeating-linear-gradient(45deg, rgba(244,239,230,0.045) 0px, rgba(244,239,230,0.045) 1px, transparent 1px, transparent 6px)`,
+          backgroundImage: row.footage
+            ? // With footage: lighter cross-hatch overlay only (let video show)
+              'repeating-linear-gradient(45deg, rgba(244,239,230,0.04) 0px, rgba(244,239,230,0.04) 1px, transparent 1px, transparent 6px)'
+            : // Without footage: gradient + cross-hatch as before
+              `${gradient}, repeating-linear-gradient(45deg, rgba(244,239,230,0.045) 0px, rgba(244,239,230,0.045) 1px, transparent 1px, transparent 6px)`,
         }}
       />
 
-      {/* Right-side vignette — keeps the text on left readable when the
-          footage texture is on */}
+      {/* Right-side vignette — keeps left text readable when texture is on */}
       <span
         aria-hidden
         className="pointer-events-none absolute inset-y-0 right-0 w-2/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-expo-out"
@@ -167,7 +190,7 @@ function ExperienceRow({ row, index }: Props) {
         }}
       />
 
-      {/* Slide-left bar — 1px → 24px azure on hover, anchors the row */}
+      {/* Slide-left bar accent */}
       <span
         aria-hidden
         className="absolute left-0 top-1/2 -translate-y-1/2 h-px bg-azure transition-all duration-500 ease-expo-out w-0 group-hover:w-6"
@@ -175,7 +198,7 @@ function ExperienceRow({ row, index }: Props) {
 
       {/* Row content */}
       <div className="relative z-10 grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 py-9 md:py-11 px-2 md:px-6 transition-[padding] duration-500 group-hover:md:pl-10">
-        {/* Period — left column */}
+        {/* Period column */}
         <div className="md:col-span-3 flex flex-col gap-1">
           <span className="font-mono text-[9px] uppercase tracking-[0.3em] text-cream/40">
             / Chapter {String(index + 1).padStart(2, '0')}
@@ -191,9 +214,18 @@ function ExperienceRow({ row, index }: Props) {
               </span>
             </span>
           )}
+          {/* "FOOTAGE" indicator badge — small mono mark when row has video */}
+          {row.footage && (
+            <span className="mt-1 inline-flex items-center gap-1.5 self-start opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+              <span className="size-1 rounded-full bg-rust animate-rec-blink" />
+              <span className="font-mono text-[8px] uppercase tracking-[0.22em] text-cream/70">
+                Footage
+              </span>
+            </span>
+          )}
         </div>
 
-        {/* Role + org + tags — middle column */}
+        {/* Role + org + tags */}
         <div className="md:col-span-6">
           <h3 className="font-display text-editorial-md font-light text-cream leading-[1.05] tracking-tightest">
             {row.role}
@@ -215,7 +247,7 @@ function ExperienceRow({ row, index }: Props) {
           )}
         </div>
 
-        {/* Note — right column */}
+        {/* Note */}
         <p className="md:col-span-3 text-cream/55 text-sm md:text-[15px] leading-relaxed md:text-right pt-1">
           {row.note}
         </p>
