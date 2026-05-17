@@ -156,6 +156,7 @@ export const experience = [
     org:    'Nhan Dan Television',
     note:   'Foreign Affairs press coverage. Bilingual broadcast packages on Ministry events.',
     tags:   ['Press', 'EN-VI'],
+    footage: '/images/lineage-footage.mp4',
   },
 ] as const;
 
